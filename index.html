@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CRUD Operations</title>
+  <!-- Link to External CSS File -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <h1>CRUD Operations</h1>
+
+  <!-- Form to Create or Edit a User -->
+  <h2>Create/Edit User</h2>
+  <form id="createUserForm">
+    <input type="hidden" id="userId" /> <!-- Hidden userId field -->
+    <input type="text" id="name" placeholder="Name" required /><br />
+    <input type="email" id="email" placeholder="Email" required /><br />
+    <input type="number" id="age" placeholder="Age" required /><br />
+    <button type="submit">Submit</button>
+  </form>
+
+  <h2>Users List</h2>
+  <table id="userList">
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Age</th>
+      <th>Actions</th>
+    </tr>
+    <!-- User list will be populated here -->
+  </table>
+
+  <!-- Link to External JavaScript File -->
+  <script src="script.js"></script>
+
+</body>
+</html>

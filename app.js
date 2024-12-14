@@ -2,15 +2,22 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const User = require('./models/users');
-require('./DB')
+require('./DB');
 const cors = require('cors'); // Import cors
 
 const app = express();
 app.use(bodyParser.json()); // Parse JSON requests
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+app.use(cors()); // Enable CORS
 
-// Create a new user (POST)
+// Serve static files from root directory where index.html is located
+app.use(express.static(path.join(__dirname)));
+
+// Serve index.html from the root directory
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html')); // Make sure index.html is in the root folder
+});
+
+// CRUD operations for users
 app.post('/users', async (req, res) => {
   const { name, email, age } = req.body;
   try {
@@ -22,7 +29,6 @@ app.post('/users', async (req, res) => {
   }
 });
 
-// Get all users (GET)
 app.get('/users', async (req, res) => {
   try {
     const users = await User.find();
@@ -32,7 +38,6 @@ app.get('/users', async (req, res) => {
   }
 });
 
-// Get a single user by ID (GET)
 app.get('/users/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -46,7 +51,6 @@ app.get('/users/:id', async (req, res) => {
   }
 });
 
-// Update a user by ID (PUT)
 app.put('/users/:id', async (req, res) => {
   const { id } = req.params;
   const { name, email, age } = req.body;
@@ -61,7 +65,6 @@ app.put('/users/:id', async (req, res) => {
   }
 });
 
-// Delete a user by ID (DELETE)
 app.delete('/users/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -74,8 +77,6 @@ app.delete('/users/:id', async (req, res) => {
     res.status(500).json({ message: 'Error deleting user', error: err });
   }
 });
-
-  
 
 // Start the server
 const PORT = 5000;
